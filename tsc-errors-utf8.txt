@@ -1,0 +1,4 @@
+﻿src/components/agent-chat/agent-server.ts(37,7): error TS2353: Object literal may only specify known properties, and 'system' does not exist in type 'CreateDeepAgentParams<SupportedResponseFormat, InteropZodObject, readonly [], readonly [], readonly []>'.
+src/components/agent-chat/agent-server.ts(53,31): error TS2349: This expression is not callable.
+  Type 'typeof import("C:/Users/golfredo/Documents/apps/acupatas-main - copia/node_modules/pdf-parse/dist/pdf-parse/cjs/index")' has no call signatures.
+src/components/agent-chat/agent-server.ts(69,26): error TS2589: Type instantiation is excessively deep and possibly infinite.

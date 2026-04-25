@@ -1,0 +1,30 @@
+:root {
+  /* Seed App Core Brand Palette */
+  --seed-yellow: #f6e527;
+  --seed-orange: #ef7c43;
+  --seed-purple: #4a2e85;
+  
+  --primary: var(--seed-purple);
+  --secondary: var(--seed-orange);
+  --accent: var(--seed-yellow);
+  
+  --background-primary: #0B0914; /* Dark background from layout */
+  --text-primary: #ffffff;
+  
+  /* Gradients */
+  --gradient-seed: linear-gradient(135deg, var(--seed-yellow) 0%, var(--seed-orange) 50%, var(--seed-purple) 100%);
+}
+
+.dark {
+  --background-primary: #05040a;
+  --text-primary: #f0f0f0;
+}
+
+/* Base Utility Classes */
+.bg-seed-gradient {
+  background: var(--gradient-seed);
+}
+
+.text-seed-yellow { color: var(--seed-yellow); }
+.text-seed-orange { color: var(--seed-orange); }
+.text-seed-purple { color: var(--seed-purple); }

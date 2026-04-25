@@ -1,0 +1,12 @@
+node_modules
+.git
+.github
+dist
+build
+.env
+.npm
+**/*.log
+music app
+public/uploads
+/data
+/tmp

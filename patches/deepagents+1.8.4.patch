@@ -1,0 +1,29 @@
+diff --git a/node_modules/deepagents/dist/index.js b/node_modules/deepagents/dist/index.js
+index efeea5f..01b3bea 100644
+--- a/node_modules/deepagents/dist/index.js
++++ b/node_modules/deepagents/dist/index.js
+@@ -1153,6 +1153,14 @@ const EXCLUDED_STATE_KEYS = [
+ */
+ const DEFAULT_GENERAL_PURPOSE_DESCRIPTION = "General-purpose agent for researching complex questions, searching for files and content, and executing multi-step tasks. When you are searching for a keyword or file and are not confident that you will find the right match in the first few tries use this agent to perform the search for you. This agent has access to all tools as the main agent.";
+ function getTaskToolDescription(subagentDescriptions) {
++	if (typeof globalThis !== "undefined" && globalThis.__BUILDER_LOCAL_LITE__) {
++		return [
++			"Spawn a short-lived subagent with isolated filesystem/todo context.",
++			"Put the full spec in `description` (paths, edits, success criteria). `subagent_type` must match one of:",
++			...subagentDescriptions,
++			"Return a concise final message; the user does not see tool traces inside the subagent.",
++		].join("\n");
++	}
+ 	return `
+ Launch an ephemeral subagent to handle complex, multi-step independent tasks with isolated context windows.
+ 
+@@ -4972,7 +4980,8 @@ function createDeepAgent(params = {}) {
+ 					],
+ 					defaultInterruptOn: interruptOn,
+ 					subagents: processedSubagents,
+-					generalPurposeAgent: true
++					generalPurposeAgent: typeof globalThis === "undefined" || !globalThis.__BUILDER_LOCAL_LITE__,
++					...typeof globalThis !== "undefined" && globalThis.__BUILDER_LOCAL_LITE__ ? { systemPrompt: null } : {}
+ 				}),
+ 				createSummarizationMiddleware({
+ 					model,

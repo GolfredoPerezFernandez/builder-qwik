@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Base Fonts */
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/poppins/latin-700.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Inter", system-ui, sans-serif;
+    scroll-behavior: smooth;
+    background-color: #0B0914;
+    color: white;
+  }
+
+  h1, h2, h3 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* VIEW TRANSITIONS API */
+:root {
+  view-transition-name: root !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(root) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: fade-in;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

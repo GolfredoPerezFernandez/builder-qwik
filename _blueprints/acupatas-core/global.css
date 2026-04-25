@@ -1,0 +1,521 @@
+@import "tailwindcss";
+
+/* Importar fuentes optimizadas según especificaciones Mind */
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-600.css";
+@import "@fontsource/poppins/latin-700.css";
+/* Bold para títulos */
+@import "@fontsource/dm-sans/latin-400.css";
+/* Regular para cuerpo */
+@import "@fontsource/dm-sans/latin-500.css";
+@import "@fontsource/dm-sans/latin-600.css";
+@import "@fontsource/inter/latin-400.css";
+/* Alternativa para cuerpo */
+@import "@fontsource/inter/latin-500.css";
+
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Aplicar tipografía según especificaciones Mind */
+@layer base {
+  html {
+    font-family: "DM Sans", "Inter", "Lato", sans-serif;
+    scroll-behavior: smooth;
+    background-color: #FAF9F6;
+    /* Crema base */
+  }
+
+  /* Títulos con Poppins Bold según especificaciones */
+  h1,
+  h2,
+  h3 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    /* Bold para títulos */
+    letter-spacing: -0.025em;
+    color: #2D2F3A;
+    /* Azul grisáceo oscuro */
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: #2D2F3A;
+  }
+
+  /* Cuerpo con DM Sans/Inter Regular según especificaciones */
+  p,
+  span,
+  a,
+  button,
+  input,
+  textarea {
+    font-family: "DM Sans", "Inter", "Lato", sans-serif;
+    color: #555;
+    /* Gris medio para cuerpo */
+  }
+
+  /* Colores base Mind */
+  body {
+    background-color: #FAF9F6;
+    color: #2D2F3A;
+    /* Evitar el resaltado gris al tocar en móviles */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Optimizar interacciones táctiles (eliminar delay de 300ms) */
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    touch-action: manipulation;
+  }
+}
+
+/* ============================================
+   VIEW TRANSITIONS API - Smooth Page Navigation
+   ============================================ */
+
+/* Enable view transitions for the entire page */
+html.transition {
+  view-transition-name: root;
+}
+
+/* Qwik can set root transition to none; force page-level transitions globally */
+:root {
+  view-transition-name: root !important;
+}
+
+/* Customize the default page transition */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-group(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-old(.route-fragment),
+  ::view-transition-new(.route-fragment) {
+    animation-duration: 1ms;
+    animation-name: none;
+  }
+}
+
+/* Fade out the old page */
+::view-transition-old(root) {
+  animation-name: fade-out-slide;
+  transform-origin: center center;
+}
+
+/* Fade in the new page */
+::view-transition-new(root) {
+  animation-name: fade-in-slide;
+  transform-origin: center center;
+}
+
+/* Animation keyframes for page transitions */
+@keyframes fade-out-slide {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+}
+
+@keyframes fade-in-slide {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(1.015);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+[data-vt-active="true"] {
+  view-transition-class: route-fragment;
+}
+
+::view-transition-old(.route-fragment) {
+  animation: fragment-out 260ms cubic-bezier(0.4, 0, 1, 1);
+}
+
+::view-transition-new(.route-fragment) {
+  animation: fragment-in 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fragment-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    filter: blur(6px);
+  }
+}
+
+@keyframes fragment-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(1.02);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Smooth transitions for modals and overlays */
+.modal-transition {
+  view-transition-name: modal;
+}
+
+::view-transition-old(modal),
+::view-transition-new(modal) {
+  animation-duration: 250ms;
+}
+
+::view-transition-old(modal) {
+  animation-name: modal-fade-out;
+}
+
+::view-transition-new(modal) {
+  animation-name: modal-fade-in;
+}
+
+@keyframes modal-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animaciones de scroll suaves y fluidas para Mind */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes gentleFloat {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@layer utilities {
+
+  /* Elementos que se animan al hacer scroll - más fluido */
+  .scroll-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-out;
+  }
+
+  .scroll-animate.animate-in {
+    animation: fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .scroll-animate-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.3s ease-out;
+  }
+
+  .scroll-animate-left.animate-in {
+    animation: fadeInLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .scroll-animate-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.3s ease-out;
+  }
+
+  .scroll-animate-right.animate-in {
+    animation: fadeInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .scroll-animate-scale {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.3s ease-out;
+  }
+
+  .scroll-animate-scale.animate-in {
+    animation: scaleIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  /* Delays para animaciones escalonadas más suaves */
+  .delay-75 {
+    animation-delay: 0.075s;
+  }
+
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .delay-150 {
+    animation-delay: 0.15s;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .delay-250 {
+    animation-delay: 0.25s;
+  }
+
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .delay-350 {
+    animation-delay: 0.35s;
+  }
+
+  .delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  .delay-450 {
+    animation-delay: 0.45s;
+  }
+
+  .delay-500 {
+    animation-delay: 0.5s;
+  }
+
+  .delay-600 {
+    animation-delay: 0.6s;
+  }
+
+  /* Utilidades específicas para Mind */
+  .mind-gradient-bg {
+    background: linear-gradient(135deg, #FAF9F6 0%, #D8F3DC 50%, #C9F0D1 100%);
+  }
+
+  .mind-card-hover {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .mind-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(255, 102, 163, 0.15);
+  }
+
+  .mind-float {
+    animation: gentleFloat 4s ease-in-out infinite;
+  }
+
+  .mind-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* Loading bar shimmer animation */
+  .animate-shimmer {
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  /* Precise Loading Bar Animation */
+  @keyframes progress-loading {
+    0% {
+      width: 0%;
+      opacity: 1;
+    }
+
+    50% {
+      width: 70%;
+    }
+
+    100% {
+      width: 95%;
+    }
+  }
+
+  .animate-progress {
+    animation: progress-loading 10s cubic-bezier(0.1, 0, 0.1, 1) forwards;
+  }
+
+  /* Safe Area Utilities */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .pl-safe {
+    padding-left: env(safe-area-inset-left, 0px);
+  }
+
+  .pr-safe {
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  .mt-safe {
+    margin-top: env(safe-area-inset-top, 0px);
+  }
+
+  .mb-safe {
+    margin-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Viewport Height fallback for mobile browsers bar */
+  .h-screen-dynamic {
+    height: 100vh;
+    height: 100dvh;
+  }
+}
+
+/* ============================================
+     GLOBAL BUTTON LOADERS (APP-WIDE)
+     ============================================ */
+
+@keyframes acupatas-btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button:not([data-no-loader="true"]):disabled,
+button.is-loading:not([data-no-loader="true"]),
+button[aria-busy="true"]:not([data-no-loader="true"]) {
+  position: relative;
+  cursor: wait;
+  filter: saturate(0.95);
+}
+
+button:not([data-no-loader="true"]):disabled::after,
+button.is-loading:not([data-no-loader="true"])::after,
+button[aria-busy="true"]:not([data-no-loader="true"])::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  opacity: 0.85;
+  animation: acupatas-btn-spin 0.7s linear infinite;
+}

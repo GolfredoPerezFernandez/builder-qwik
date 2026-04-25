@@ -1,0 +1,10 @@
+# Cloudflare
+functions/**/*.js
+node_modules
+dist
+
+# Optional local junctions to sibling Qwik apps (see scripts/link-example-blueprints.ps1)
+/_blueprints/spelling-game/
+/_blueprints/koolinart/
+/_blueprints/iriparo/
+/_blueprints/crypto-helper/

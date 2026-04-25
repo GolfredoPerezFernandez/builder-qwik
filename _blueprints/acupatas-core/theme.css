@@ -1,0 +1,125 @@
+/* Paleta Mind */
+:root {
+  --mind-pink: #FF66A3; /* Rosa suave */
+  --mind-blue: #2D2F3A; /* Azul grisáceo oscuro */
+  --mind-celeste: #C9F0D1; /* Celeste grisáceo */
+  --mind-menta: #D8F3DC; /* Verde menta claro */
+  --mind-crema: #FAF9F6; /* Crema cálido */
+  --mind-text-main: #2D2F3A;
+  --mind-text-body: #555;
+  --mind-text-body-light: #666;
+
+  /* Uso global */
+  --primary: var(--mind-pink);
+  --secondary: var(--mind-blue);
+  --accent: var(--mind-celeste);
+  --mint: var(--mind-menta);
+  --cream: var(--mind-crema);
+  --background-primary: var(--mind-crema);
+  --background-secondary: var(--mind-menta);
+  --text-primary: var(--mind-blue);
+  --text-secondary: var(--mind-text-body);
+  --border-color: var(--mind-celeste);
+
+  /* Gradientes Mind */
+  --gradient-primary: linear-gradient(90deg, #FF66A3 0%, #C9F0D1 100%);
+  --gradient-section: linear-gradient(180deg, #FAF9F6 0%, #D8F3DC 100%);
+
+  /* Tipografía */
+  --font-heading: 'Poppins', 'ui-sans-serif', 'system-ui', Arial, sans-serif;
+  --font-body: 'Inter', 'Lato', 'ui-sans-serif', 'system-ui', Arial, sans-serif;
+}
+
+/* Variables de tema oscuro (opcional, puedes personalizar si lo deseas) */
+.dark {
+  --primary: var(--royal-blue);
+  --secondary: var(--sky-blue);
+  --accent: var(--cornflower-blue);
+  --success: var(--dodger-blue);
+  --info: var(--deep-sky-blue);
+  --warning: var(--powder-blue);
+  --danger: var(--steel-blue); /* Or var(--midnight-blue) */
+
+  --background-primary: #0A192F; /* Darkest Navy Blue */
+  --background-secondary: #172A45; /* Dark Navy Blue */
+  --text-primary: var(--blue-white);
+  --text-secondary: var(--sky-blue); 
+  --border-color: var(--steel-blue);
+}
+
+/* Utilidades para colores */
+.bg-primary { background-color: var(--primary); }
+.bg-secondary { background-color: var(--secondary); }
+.bg-accent { background-color: var(--accent); }
+.bg-success { background-color: var(--success); }
+.bg-info { background-color: var(--info); }
+.bg-warning { background-color: var(--warning); }
+.bg-danger { background-color: var(--danger); }
+
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+.text-accent { color: var(--accent); }
+.text-success { color: var(--success); }
+.text-info { color: var(--info); }
+.text-warning { color: var(--warning); }
+.text-danger { color: var(--danger); }
+
+/* Animaciones temáticas */
+@keyframes float {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(5px, -15px); }
+  50% { transform: translate(10px, 0); }
+  75% { transform: translate(5px, 15px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+/* Gradientes Temáticos */
+.bg-gradient-moa {
+  background: var(--gradient-primary);
+}
+
+.bg-gradient-expedition {
+  background: var(--gradient-mountains);
+}
+
+.bg-mountains {
+  background-color: var(--secondary); /* This will now be a blue */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%234169E1' fill-opacity='0.4' d='M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,181.3C960,181,1056,203,1152,208C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3Cpath fill='%2387CEEB' fill-opacity='0.3' d='M0,288L48,272C96,256,192,224,288,213.3C384,203,480,213,576,229.3C672,245,768,267,864,261.3C960,256,1056,224,1152,213.3C1248,203,1344,213,1392,218.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center bottom;
+}

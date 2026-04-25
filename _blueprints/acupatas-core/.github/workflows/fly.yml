@@ -1,0 +1,43 @@
+name: Fly Deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    concurrency: deploy-group
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Comprobar secrets de VAPID en GitHub
+        env:
+          PUBLIC_VAPID_KEY: ${{ secrets.PUBLIC_VAPID_KEY }}
+          PRIVATE_VAPID_KEY: ${{ secrets.PRIVATE_VAPID_KEY }}
+        run: |
+          if [ -z "$PUBLIC_VAPID_KEY" ] || [ -z "$PRIVATE_VAPID_KEY" ]; then
+            echo "::error::Añade en el repo: Settings → Secrets → Actions → PUBLIC_VAPID_KEY y PRIVATE_VAPID_KEY (mismas claves que en .env local)."
+            exit 1
+          fi
+
+      - name: Sincronizar VAPID en Fly (runtime)
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          PUBLIC_VAPID_KEY: ${{ secrets.PUBLIC_VAPID_KEY }}
+          PRIVATE_VAPID_KEY: ${{ secrets.PRIVATE_VAPID_KEY }}
+        run: |
+          flyctl secrets set \
+            PUBLIC_VAPID_KEY="$PUBLIC_VAPID_KEY" \
+            PRIVATE_VAPID_KEY="$PRIVATE_VAPID_KEY"
+
+      - name: Desplegar imagen (build con PUBLIC_VAPID_KEY para la PWA)
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          PUBLIC_VAPID_KEY: ${{ secrets.PUBLIC_VAPID_KEY }}
+        run: |
+          flyctl deploy --remote-only \
+            --build-arg "PUBLIC_VAPID_KEY=$PUBLIC_VAPID_KEY"
